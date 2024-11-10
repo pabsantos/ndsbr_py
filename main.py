@@ -31,7 +31,8 @@ def main() -> None:
     print("Saving ndsbr data...")
     nds_sample.info(show_counts=True, verbose=True)
     nds_sample.to_csv("data/ndsbr.csv", index=False)
-    nds_sample.to_file("data/ndsbr.geojson", driver="GeoJSON")
+    nds_sample.to_parquet("data/ndsbr.parquet")
+    #nds_sample.to_file("data/ndsbr.geojson", driver="GeoJSON")
 
 if __name__ == "__main__":
     main()

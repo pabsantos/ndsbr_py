@@ -18,7 +18,7 @@ def clean_cols(df: pd.DataFrame) -> pd.DataFrame:
     """
     COLS = [
         "DRIVER", "LONG", "LAT", "DAY", "TRIP", "ID", "PR", "TIME_ACUM",
-        "SPD_KMH", "VALID_TIME"
+        "SPD_KMH", "VALID_TIME", 'TIMESTAMP', 'ACEL_MS2'
     ]
 
     df = df[COLS]
@@ -33,14 +33,15 @@ def clean_cols(df: pd.DataFrame) -> pd.DataFrame:
             "PR": "time",
             "TIME_ACUM": "time_acum",
             "SPD_KMH": "spd_kmh",
-            "VALID_TIME": "valid_time"
+            "VALID_TIME": "valid_time",
+            "ACEL_MS2": "acel_ms2"
         }
     )
 
     def to_float(df: pd.DataFrame, col: str) -> pd.Series:
         return df[col].str.replace(",", ".").astype(float)
     
-    for col in ["long", "lat", "spd_kmh"]:
+    for col in ["long", "lat", "spd_kmh", 'acel_ms2']:
         df[col] = to_float(df, col)
 
     return df
@@ -67,6 +68,7 @@ def create_datetime(
     """
     df["datetime"] = df[date_col] + " " + df[time_col]
     df["datetime"] = pd.to_datetime(df["datetime"], format='%d/%m/%Y %H:%M:%S')
+    df[date_col] = pd.to_datetime(df[date_col], format='%d/%m/%Y')
 
     return df
 
@@ -217,8 +219,9 @@ def fix_col_order(ndsbr_data: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
     """
     
     cols = [
-        'id', 'driver', 'trip', 'long', 'lat', 'date', 'time', 'datetime',
-        'time_acum', 'spd_kmh', 'valid_time', 'nome_bairro', 'nome_via',
-        'tipo_via_cwb', 'tipo_via_ctb', 'spd_limit', 'geometry'
+        'id', 'driver', 'trip', 'long', 'lat', 'date', 'time',
+        'time_acum', 'spd_kmh', 'acel_ms2', 'valid_time',
+        'nome_bairro', 'nome_via', 'tipo_via_cwb', 'tipo_via_ctb', 'spd_limit',
+        'geometry'
     ]
     return ndsbr_data[cols]
