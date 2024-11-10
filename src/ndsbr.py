@@ -221,7 +221,6 @@ def fix_col_order(ndsbr_data: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
     cols = [
         'id', 'driver', 'trip', 'long', 'lat', 'date', 'time',
         'time_acum', 'spd_kmh', 'acel_ms2', 'valid_time',
-        'nome_bairro', 'nome_via', 'tipo_via_cwb', 'tipo_via_ctb', 'spd_limit',
-        'geometry'
+        'bairro', 'nome_via', 'tipo_via_cwb', 'tipo_via_ctb', 'spd_limit'
     ]
     return ndsbr_data[cols]

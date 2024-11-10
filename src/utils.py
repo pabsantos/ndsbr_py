@@ -19,7 +19,7 @@ def load_bairros(url: str) -> gpd.GeoDataFrame:
     """
     cols = ["NOME", "geometry"]
     bairros = gpd.read_file(url)
-    bairros = bairros[cols].rename(columns={"NOME": "nome_bairro"})
+    bairros = bairros[cols].rename(columns={"NOME": "bairro"})
     return bairros
 
 def load_vias_cwb(url: str) -> gpd.GeoDataFrame:
